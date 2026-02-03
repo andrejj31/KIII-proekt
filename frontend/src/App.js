@@ -7,9 +7,9 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  const APIURI = 'http://localhost:5001';
+
   const getTodos = async () => {
-    const res = await axios.get(`${APIURI}/api/todos`);
+    const res = await axios.get(`/api/todos`);
     setTodos(res.data);
   };
 
@@ -20,17 +20,17 @@ function App() {
   const handleAddOrUpdate = async () => {
     if (!task.trim()) return;
     if (editId) {
-      await axios.put(`${APIURI}/api/todos/${editId}`, { task });
+      await axios.put(`/api/todos/${editId}`, { task });
       setEditId(null);
     } else {
-      await axios.post(`${APIURI}/api/todos`, { task });
+      await axios.post(`/api/todos`, { task });
     }
     setTask('');
     getTodos();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`${APIURI}/api/todos/${id}`);
+    await axios.delete(`/api/todos/${id}`);
     getTodos();
   };
 
