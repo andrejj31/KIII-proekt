@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  backend:
+    image: andrejvelkov/todo-backend:latest
+    build: null
+
+  frontend:
+    image: andrejvelkov/todo-frontend:latest
+    build: null
