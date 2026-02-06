@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: todo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: andrejvelkov/todo-backend:latest
+          ports:
+            - containerPort: 5001
+              name: http
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: NODE_ENV
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: PORT
+            - name: MONGO_URI_LOCAL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: MONGO_URI_LOCAL
+            - name: MONGO_URI_PROD
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: MONGO_URI_PROD
